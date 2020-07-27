@@ -1,0 +1,22 @@
+
+punctuation_chars = ["'", '"', ",", ".", "!", ":", ";", '#', '@']
+def strip_punctuation(s):
+    for c in s:
+        if c in punctuation_chars:
+            s = s.replace(c,'')
+    return s
+
+negative_words = []
+with open("negative_words.txt") as pos_f:
+    for lin in pos_f:
+        if lin[0] != ';' and lin[0] != '\n':
+            negative_words.append(lin.strip())
+
+def get_neg(sentence):
+    words = sentence.lower().split()
+    count = 0
+    for word in words:
+        word = strip_punctuation(word)
+        if word in negative_words:
+            count += 1
+    return count
